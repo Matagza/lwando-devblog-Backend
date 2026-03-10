@@ -2,7 +2,7 @@ const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 
 const signToken = (id) => {
-  const secret = process.env.JWT_SECRET || "fallback_secret_for_lwando_devblog";
+  const secret = process.env.JWT_SECRET;
   return jwt.sign({ id }, secret, {
     expiresIn: process.env.JWT_EXPIRES_IN || '7d'
   });
