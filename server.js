@@ -13,7 +13,10 @@ const app = express();
 connectDB();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: "https://lwando-devblog-frontend.vercel.app",
+  credentials: true,
+}));
 app.use(express.json());
 
 // Add Content Security Policy header to allow fonts
