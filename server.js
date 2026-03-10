@@ -16,7 +16,7 @@ connectDB();
 app.use(cors());
 app.use(express.json());
 
-// Content Security Policy
+// Add Content Security Policy header to allow fonts
 app.use((req, res, next) => {
   res.setHeader("Content-Security-Policy", "default-src 'self'; font-src 'self' https://*; img-src 'self' data: https://*; script-src 'self' https://*; style-src 'self' https://*; connect-src 'self' https://*");
   next();
@@ -24,6 +24,9 @@ app.use((req, res, next) => {
 
 // Serve static files from the 'public' directory
 app.use("/uploads", express.static(path.join(__dirname, "public/uploads")));
+
+// Favicon handler
+app.get("/favicon.ico", (req, res) => res.status(204).send());
 
 // Routes
 app.use("/api/auth", authRoutes);
