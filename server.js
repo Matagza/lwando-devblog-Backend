@@ -16,6 +16,12 @@ connectDB();
 app.use(cors());
 app.use(express.json());
 
+// Content Security Policy
+app.use((req, res, next) => {
+  res.setHeader("Content-Security-Policy", "default-src 'self'; font-src 'self' https://*; img-src 'self' data: https://*; script-src 'self' https://*; style-src 'self' https://*; connect-src 'self' https://*");
+  next();
+});
+
 // Serve static files from the 'public' directory
 app.use("/uploads", express.static(path.join(__dirname, "public/uploads")));
 
@@ -23,6 +29,11 @@ app.use("/uploads", express.static(path.join(__dirname, "public/uploads")));
 app.use("/api/auth", authRoutes);
 app.use("/api/posts", postRoutes);
 app.use("/api/db", dbRoutes);
+
+// Root route
+app.get("/", (req, res) => {
+  res.send("Lwando DevBlog Backend API is running!");
+});
 
 // Error handling middleware
 app.use((err, req, res, next) => {
