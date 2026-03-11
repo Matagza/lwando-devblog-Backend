@@ -11,7 +11,7 @@ const protect = async (req, res, next) => {
 
   if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
     token = req.headers.authorization.split(' ')[1];
-  console.log(\'Auth Middleware: JWT_SECRET available:\', !!jwtSecret, \'length:\', jwtSecret ? jwtSecret.length : 0); }
+  console.log(\'Auth Middleware: JWT_SECRET available:\', !!jwtSecret, \'length:\', jwtSecret ? jwtSecret.length : 0);
 
   if (!token) {
     console.log('Auth Middleware: No token found');
