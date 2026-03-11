@@ -4,8 +4,9 @@ const User = require('../models/User');
 const protect = async (req, res, next) => {
   let token;
 
-  if (req.headers.authorization && req.headers.authorization.startsWith('Bearer'))     token = req.headers.authorization.split(\' \')[1];
-    console.log(\'Auth Middleware: JWT_SECRET available:\', !!process.env.JWT_SECRET, \'length:\', process.env.JWT_SECRET ? process.env.JWT_SECRET.length : 0);
+  if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
+    token = req.headers.authorization.split(' ')[1];
+    console.log('Auth Middleware: JWT_SECRET available:', !!process.env.JWT_SECRET, 'length:', process.env.JWT_SECRET ? process.env.JWT_SECRET.length : 0);
   }
 
   if (!token) {
@@ -26,7 +27,9 @@ const protect = async (req, res, next) => {
 
     console.log('Auth Middleware: Success, user:', req.user.name);
     next();
-  } catch (error) {    console.error(\'Auth Middleware ERROR:\', error.message, \'Token:\', token ? token.substring(0, 10) + \'...\' : \'N/A\');    return res.status(401).json({ message: 'Invalid token' });
+  } catch (error) {
+    console.error('Auth Middleware ERROR:', error.message, 'Token:', token ? token.substring(0, 10) + '...' : 'N/A');
+    return res.status(401).json({ message: 'Invalid token' });
   }
 };
 
