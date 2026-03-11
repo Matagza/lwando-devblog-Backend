@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 
 const signToken = (id) => {
   const secret = process.env.JWT_SECRET;
+  console.log("Auth Controller: JWT_SECRET used for signing (length):", secret ? secret.length : 0);
   return jwt.sign({ id }, secret, {
     expiresIn: process.env.JWT_EXPIRES_IN || '7d'
   });
