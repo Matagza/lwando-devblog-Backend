@@ -1,9 +1,11 @@
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
 
 const signToken = (id) => {
   const secret = process.env.JWT_SECRET;
-  console.log("Auth Controller: JWT_SECRET used for signing (length):", secret ? secret.length : 0);
+  const secretHash = secret ? crypto.createHash("sha256").update(secret).digest("hex") : "N/A";
+  console.log("Auth Controller: JWT_SECRET used for signing (hash):", secretHash, "(length):", secret ? secret.length : 0);
   return jwt.sign({ id }, secret, {
     expiresIn: process.env.JWT_EXPIRES_IN || '7d'
   });
