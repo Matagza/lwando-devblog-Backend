@@ -1,5 +1,4 @@
 require("dotenv").config();
-console.log('Server.js: JWT_SECRET available:', !!process.env.JWT_SECRET, 'length:', process.env.JWT_SECRET ? process.env.JWT_SECRET.length : 0);
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
