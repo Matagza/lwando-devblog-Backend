@@ -13,6 +13,7 @@ const protect = async (req, res, next) => {
   token = req.headers.authorization.split(' ')[1];
     const secretHash = jwtSecret ? crypto.createHash("sha256").update(jwtSecret).digest("hex") : "N/A";
     console.log('Auth Middleware: JWT_SECRET used for verification (hash):', secretHash, '(length):', jwtSecret ? jwtSecret.length : 0);
+  }
 
   if (!token) {
     console.log('Auth Middleware: No token found');
