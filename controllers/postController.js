@@ -32,7 +32,9 @@ exports.createPost = async (req, res) => {
         const uploadResponse = await cloudinary.uploader.upload(fileBase64, { folder: 'newsletter' });
         imageUrl = uploadResponse.secure_url;
       } else {
-        imageUrl = `http://localhost:5000${saveLocalFile(req.file)}`;
+        const host = req.get('host');
+        const protocol = req.protocol;
+        imageUrl = `${protocol}://${host}${saveLocalFile(req.file)}`;
       }
     }
 
@@ -64,7 +66,9 @@ exports.updatePost = async (req, res) => {
         const uploadResponse = await cloudinary.uploader.upload(fileBase64, { folder: 'newsletter' });
         updateData.image = uploadResponse.secure_url;
       } else {
-        updateData.image = `http://localhost:5000${saveLocalFile(req.file)}`;
+        const host = req.get('host');
+        const protocol = req.protocol;
+        updateData.image = `${protocol}://${host}${saveLocalFile(req.file)}`;
       }
     }
 
