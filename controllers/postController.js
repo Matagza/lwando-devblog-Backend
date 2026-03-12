@@ -33,7 +33,8 @@ exports.createPost = async (req, res) => {
         imageUrl = uploadResponse.secure_url;
       } else {
         const host = req.get('host');
-        const protocol = req.protocol;
+        // Ensure https on Render or other proxies
+        const protocol = req.headers['x-forwarded-proto'] || req.protocol;
         imageUrl = `${protocol}://${host}${saveLocalFile(req.file)}`;
       }
     }
@@ -67,7 +68,8 @@ exports.updatePost = async (req, res) => {
         updateData.image = uploadResponse.secure_url;
       } else {
         const host = req.get('host');
-        const protocol = req.protocol;
+        // Ensure https on Render or other proxies
+        const protocol = req.headers['x-forwarded-proto'] || req.protocol;
         updateData.image = `${protocol}://${host}${saveLocalFile(req.file)}`;
       }
     }

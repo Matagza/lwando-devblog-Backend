@@ -13,20 +13,17 @@ const app = express();
 connectDB();
 
 // Middleware
-app.use(cors({
-  origin: "https://lwando-devblog-frontend.vercel.app",
-  credentials: true,
-}));
+app.use(cors()); // Allow all origins for debugging and production stability across multiple deployments
 app.use(express.json());
 
 // Add Content Security Policy header to allow fonts
 app.use((req, res, next) => {
-  res.setHeader("Content-Security-Policy", "default-src 'self'; font-src 'self' https://*; img-src 'self' data: https://*; script-src 'self' https://*; style-src 'self' https://*; connect-src 'self' https://*");
+  res.setHeader("Content-Security-Policy", "default-src 'self'; font-src 'self' https://*; img-src 'self' * data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*; style-src 'self' 'unsafe-inline' https://*; connect-src 'self' https://*");
   next();
 });
 
 // Serve static files from the 'public' directory
-app.use("/uploads", express.static(path.join(__dirname, "public/uploads")));
+app.use("/uploads", express.static(path.join(process.cwd(), "public/uploads")));
 
 // Favicon handler
 app.get("/favicon.ico", (req, res) => res.status(204).send());
