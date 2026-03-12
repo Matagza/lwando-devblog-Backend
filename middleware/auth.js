@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/User')
 const protect = async (req, res, next) => {
-  const jwtSecret = process.env.JWT_SECRET;
+  const jwtSecret = process.env.JWT_SECRET ? process.env.JWT_SECRET.trim() : undefined;
   if (!jwtSecret) {
     console.error('Auth Middleware ERROR: JWT_SECRET is not defined in environment variables.');
     return res.status(500).json({ message: 'Server configuration error: JWT secret missing.' });
